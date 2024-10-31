@@ -1,10 +1,20 @@
 <div>
   <h2>Lista de Tareas</h2>
   <ul>
-    <input type="text" placeholder="Nueva tarea" [(ngModel)]="nuevaTarea"/>
+    <input type="text" placeholder="Nueva tarea" [(ngModel)]="nuevaTarea" />
     <button (click)="agregarTarea()">Agregar Tarea</button>
+    
     <li *ngFor="let tarea of listaTareas; let i = index">
-      {{tarea}}
+      <span *ngIf="indiceEdicion !== i">{{ tarea }}</span>
+      <input *ngIf="indiceEdicion === i" [(ngModel)]="textoEditado" />
+
+      <!-- Botón para editar -->
+      <button *ngIf="indiceEdicion !== i" (click)="editarTarea(i)">Editar</button>
+
+      <!-- Botón para guardar cambios en la tarea editada -->
+      <button *ngIf="indiceEdicion === i" (click)="guardarTarea(i)">Guardar</button>
+
+      <!-- Botón para eliminar tarea -->
       <button (click)="eliminarTarea(i)">Eliminar</button>
     </li>
   </ul>

@@ -7,11 +7,11 @@ export class TareasService {
 
   private localStorageKey = 'listaTareas';
 
-  getTareas():string[] {
+  getTareas(): string[] {
     return JSON.parse(localStorage.getItem(this.localStorageKey) as string) || [];
   }
 
-  agregarTarea(tarea: string){
+  agregarTarea(tarea: string) {
     const tareas = this.getTareas();
     tareas.push(tarea);
     localStorage.setItem(this.localStorageKey, JSON.stringify(tareas));
@@ -19,7 +19,15 @@ export class TareasService {
 
   eliminarTarea(index: number) {
     const tareas = this.getTareas();
-    tareas.splice(index,1);
+    tareas.splice(index, 1);
     localStorage.setItem(this.localStorageKey, JSON.stringify(tareas));
+  }
+
+  actualizarTarea(index: number, nuevoTexto: string) {
+    const tareas = this.getTareas();
+    if (index >= 0 && index < tareas.length) {
+      tareas[index] = nuevoTexto;  // Actualiza el texto de la tarea
+      localStorage.setItem(this.localStorageKey, JSON.stringify(tareas));
+    }
   }
 }
